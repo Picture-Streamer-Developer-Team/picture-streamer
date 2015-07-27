@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<!--
+Picture Streamer
+
+This file is part of the Picture Streamer project.
+The program streams image previews from your DSLR or simular
+camera to a web interface, allowing you to download pictures
+the moment they've been taken.
+
+Copyright (C) 2015 Christian Beuschel <chris109@web.de>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; version 2 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software Foundation,
+Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+-->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Picture Streamer Favicon">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="22.4"
+     inkscape:cx="16.039811"
+     inkscape:cy="14.924494"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1020.3622)">
+    <g
+       id="g3763"
+       transform="translate(1.5178576,0)">
+      <rect
+         ry="3.616019"
+         y="1029.2729"
+         x="-0.51785755"
+         height="18"
+         width="30"
+         id="rect2985"
+         style="fill:#000000;fill-opacity:1;stroke:none" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         id="rect2987"
+         width="12"
+         height="8"
+         x="8.4821424"
+         y="1026.5944"
+         ry="3.4762886" />
+      <rect
+         ry="0.97321427"
+         y="1028.2732"
+         x="2.8125"
+         height="4"
+         width="4"
+         id="rect2989"
+         style="fill:#000000;fill-opacity:1;stroke:none" />
+      <path
+         transform="matrix(1.0971429,0,0,1.4147369,3.6331629,1013.7803)"
+         d="m 15.357142,17.3125 c 0,2.342279 -2.448442,4.241071 -5.4687496,4.241071 -3.0203072,0 -5.46875,-1.898792 -5.46875,-4.241071 0,-2.342279 2.4484428,-4.241071 5.46875,-4.241071 3.0203076,0 5.4687496,1.898792 5.4687496,4.241071 z"
+         sodipodi:ry="4.2410712"
+         sodipodi:rx="5.46875"
+         sodipodi:cy="17.3125"
+         sodipodi:cx="9.8883924"
+         id="path2991"
+         style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1.60531616;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         id="rect3761"
+         width="4"
+         height="2"
+         x="22.901787"
+         y="1031.6124"
+         ry="0.48660713" />
+    </g>
+  </g>
+</svg>

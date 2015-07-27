@@ -1,0 +1,15 @@
+# Ubuntu
+sudo apt-get install python-avahi python-imaging python-pip python-dev libgphoto2-dev
+sudo pip install gphoto2
+
+# Raspbian
+sudo aptitude install python-avahi python-imaging python-pip python-dev libgphoto2-2-dev
+sudo pip install gphoto2
+
+nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+cd /etc/ifplugd/action.d/
+mv ifupdown ifupdown.orginal
+cp /etc/wpa_supplicant/ifupdown.sh ./ifupdown
+
+apt-get install wavemon

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <title>Picture Streamer</title>
+
+    <!-- Meta information -->
+    <meta name="application-name" content="Picture Streamer">
+    <meta name="author" content="Christian Beuschel">
+    <meta name="copyright" content="(C) 2015 by Christian Beuschel (chris109@web.de)">
+    <meta name="description" content="Streams pictures from your DSLR or simular camara to your browser.">
+
+    <!-- Technical content description -->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="content-style-type" content="text/css"/>
+    <meta http-equiv="expires" content="0"/>
+
+    <!-- Configure Safari on iPhone -->
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, user-scalable = no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- Provide icons for several browsers -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- Provide app icons for iPhone home screen
+    <link rel="apple-touch-icon-precomposed" href="img/favicons/logo_57.png" />
+    <link rel="apple-touch-icon-precomposed" href="img/favicons/logo_72.png" sizes="72x72" />
+    <link rel="apple-touch-icon-precomposed" href="img/favicons/logo_114.png" sizes="114x114" /> -->
+
+    <!-- Change iPhone status bar (default, black, black-translucent) -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <!-- Disable automatic phone number detection -->
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- JavaScript -->
+    <script language="JavaScript" type="text/javascript" src="jquery.js"></script>
+    <script language="JavaScript" type="text/javascript" src="index.js"></script>
+</head>
+<body>
+
+<div class="Page">
+    <div class="Header">
+        <div class="StateElement" id="StateElement_CameraState">
+            <div class="StateValueBad" id="StateValue_CameraState_Disconnected">
+                NO CAMERA
+            </div>
+            <div class="StateValue" id="StateValue_CameraState_Connected">
+                CAMERA OK
+            </div>
+        </div>
+        <div class="StateElement" id="StateElement_NetworkState">
+            <div class="StateValueBad" id="StateValue_NetworkState_Disconnected">
+                NO NETWORK
+            </div>
+            <div class="StateValue" id="StateValue_NetworkState_Connected">
+                NETWORK OK
+            </div>
+        </div>
+        <div class="MenuButton" id="OptionMenuButton">
+            MENU
+        </div>
+    </div>
+    <div class="Content" id="ThumbnailList">
+    </div>
+    <div class="Footer">
+
+    </div>
+</div>
+<!-- iframe used for attempting to load a custom protocol -->
+<iframe style="display:none" height="0" width="0" id="loader"></iframe>
+</body>
+</html>

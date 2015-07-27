@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# Picture Streamer
+#
+# This file is part of the Picture Streamer project.
+# The program streams image previews from your DSLR or simular
+# camera to a web interface, allowing you to download pictures
+# the moment they've been taken.
+#
+# Copyright (C) 2015 Christian Beuschel <chris109@web.de>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 2 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software Foundation,
+# Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+
+# Save the current suspend and automount settings to variables
+SLEEP_INACTIVE_AC_TYPE=`gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type`
+SLEEP_INACTIVE_BATTERY_TYPE=`gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type`
+LID_CLOSE_AC_ACTION=`gsettings get org.gnome.settings-daemon.plugins.power lid-close-ac-action`
+LID_CLOSE_BATTERY_ACTION=`gsettings get org.gnome.settings-daemon.plugins.power lid-close-battery-action`
+AUTOMOUNT=`gsettings get org.gnome.desktop.media-handling automount`
+
+echo "Disabling suspend and automount"
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power lid-close-ac-action 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power lid-close-battery-action 'nothing'
+gsettings set org.gnome.desktop.media-handling automount "false"
+
+
+echo "Starting Picture Streamer"
+python picture-streamer.py
+
+echo "Resetting suspend and automount settings to default values"
+gsettings set org.gnome.desktop.media-handling automount $AUTOMOUNT
+gsettings set org.gnome.settings-daemon.plugins.power lid-close-battery-action $LID_CLOSE_BATTERY_ACTION
+gsettings set org.gnome.settings-daemon.plugins.power lid-close-ac-action $LID_CLOSE_AC_ACTION
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type $SLEEP_INACTIVE_BATTERY_TYPE
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type $SLEEP_INACTIVE_AC_TYPE
+
+# Note:
+# These are the default values that might be usefull, if something goes wrong with this script.
+#
+# gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'suspend'
+# gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
+# gsettings set org.gnome.settings-daemon.plugins.power lid-close-ac-action 'suspend'
+# gsettings set org.gnome.settings-daemon.plugins.power lid-close-battery-action 'suspend'
+# gsettings set org.gnome.desktop.media-handling automount "true"
+# gsettings set org.gnome.desktop.media-handling automount-open "true"
