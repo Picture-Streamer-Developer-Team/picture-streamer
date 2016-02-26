@@ -23,6 +23,6 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
 nohup python picture-streamer.py -session  "default_capture_session" \
-                           -shutdown "sudo shutdown -h now" \
-                           -reboot   "sudo reboot" \
+                           -shutdown "sudo shutdown -h +1" \
+                           -reboot   "sudo shutdown -r +1" \
                            -log      "default_capture_session.log" 0<&- &>/dev/null &

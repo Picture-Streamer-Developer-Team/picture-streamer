@@ -43,6 +43,10 @@
 <body>
 
 <div class="Page">
+    <div class="ContentFrame" id="ScrollFrame">
+        <div class="Content" id="ThumbnailList">
+        </div>
+    </div>
     <div class="Header">
         <div class="StateElement" id="StateElement_CameraState">
             <div class="StateValueBad" id="StateValue_CameraState_Disconnected">
@@ -64,12 +68,8 @@
             MENU
         </div>
     </div>
-    <div class="Content" id="ThumbnailList">
-    </div>
-    <div class="Footer">
-
-    </div>
 </div>
+<div id="ToastMessage" class="Toast HiddenToast"></div>
 <!-- iframe used for attempting to load a custom protocol -->
 <iframe style="display:none" height="0" width="0" id="loader"></iframe>
 </body>

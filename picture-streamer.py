@@ -80,10 +80,10 @@ class ThumbnailCreationProcess(multiprocessing.Process):
             result_dict = {self.RESULT_KEY_PICTURE_NAME: picture_name,
                            self.RESULT_KEY_SUCCESS: True}
             try:
-                size = 300, 300
+                size = 600, 600
                 image = Image.open(picture_path)
                 image.thumbnail(size, Image.ANTIALIAS)
-                image.save(thumbnail_path, 'JPEG')
+                image.save(thumbnail_path, 'JPEG', quality=75, optimize=True, progressive=True)
             except IOError:
                 result_dict[self.RESULT_KEY_SUCCESS] = False
             finally:

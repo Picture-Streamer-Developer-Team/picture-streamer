@@ -24,19 +24,34 @@
 function Page()
 {
     // Pages in menu navigation
-    this.photoFolder        = 'photo';
-    this.thumnailFolder     = 'thumb';
-    this.dataURI            = 'data.json';
-    this.imageList          = [];
-    this.imageCounter       = 0;
-    this.isCameraConnected  = false;
-    this.isNetworkConnected = false;
-    this.isOptionMenuOpen   = false;
+    this.directAppLinkProtocol = 'http-image-jpeg://';
+    this.photoFolder           = 'photo';
+    this.thumnailFolder        = 'thumb';
+    this.dataURI               = 'data.json';
+    this.imageList             = [];
+    this.imageCounter          = 0;
+    this.isCameraConnected     = false;
+    this.isNetworkConnected    = false;
+    this.isOptionMenuOpen      = false;
 
-    this.opntionUseDirectAppLinks = false;
+    this.optionAutomaticScrolling = false;
+    this.optionUseDirectAppLinks  = false;
 
     this.init = function()
     {
+        if(typeof(Storage) !== 'undefined')
+        {
+            automaticScrolling = JSON.parse(localStorage.getItem('OptionAutomaticScrolling'));
+            if (automaticScrolling == true)
+            {
+                this.optionAutomaticScrolling = true;
+            }
+            useDirectAppLinks = JSON.parse(localStorage.getItem('OptionUseDirectAppLinks'));
+            if (useDirectAppLinks == true)
+            {
+                this.optionUseDirectAppLinks = true;
+            }
+        }
         var context = this;
         $('#OptionMenuButton').click(function()
         {
@@ -55,7 +70,40 @@ function Page()
                 'class': 'Menu'
             });
 
-            txt = (this.opntionUseDirectAppLinks == false) ? 'Use direct app liks' : 'Use normal links';
+            txt = 'Scroll to top';
+            menuEntryScrollToTop = $('<div>',
+            {
+                'class': 'MenuEntry',
+                'text' : txt
+            }).click(function()
+            {
+                context.handleMenuEntryScrollToTopClicked(this);
+            });
+            $(menuDiv).append(menuEntryScrollToTop);
+
+            txt = 'Scroll to bottom';
+            menuEntryScrollToBottom = $('<div>',
+            {
+                'class': 'MenuEntry',
+                'text' : txt
+            }).click(function()
+            {
+                context.handleMenuEntryScrollToBottomClicked(this);
+            });
+            $(menuDiv).append(menuEntryScrollToBottom);
+
+            txt = (this.optionAutomaticScrolling == false) ? 'Enable automatic scrolling' : 'Disable automatic scrolling';
+            menuEntryUseAutomaticScrolling = $('<div>',
+            {
+                'class': 'MenuEntry',
+                'text' : txt
+            }).click(function()
+            {
+                context.handleMenuEntryUseAutomaticScrollingClicked(this);
+            });
+            $(menuDiv).append(menuEntryUseAutomaticScrolling);
+
+            txt = (this.optionUseDirectAppLinks == false) ? 'Use direct app liks' : 'Use normal links';
             menuEntryUseDirectAppLinks = $('<div>',
             {
                 'class': 'MenuEntry',
@@ -64,6 +112,21 @@ function Page()
             {
                 context.handleMenuEntryUseDirectAppLinksClicked(this);
             });
+            $(menuDiv).append(menuEntryUseDirectAppLinks);
+
+            if(typeof(Storage) !== "undefined")
+            {
+                txt = 'Clear local storage';
+                menuEntryClearLocalStorage = $('<div>',
+                {
+                    'class': 'MenuEntry',
+                    'text' : txt
+                }).click(function()
+                {
+                    context.handleMenuEntryClearLocalStorageClicked(this);
+                });
+                $(menuDiv).append(menuEntryClearLocalStorage);
+            }
 
             txt = 'Shutdown server'
             menuEntryShutdown = $('<div>',
@@ -74,9 +137,8 @@ function Page()
             {
                 context.handleMenuEntryShutdownClicked(this);
             });
-
-            $(menuDiv).append(menuEntryUseDirectAppLinks);
             $(menuDiv).append(menuEntryShutdown);
+
             $('body').append(menuDiv);
             this.isOptionMenuOpen = true;
         }
@@ -87,35 +149,107 @@ function Page()
         }
     }
 
+    this.handleMenuEntryScrollToTopClicked = function(menuEntry)
+    {
+        $('html, body').animate({scrollTop: 0 }, 750);
+        var context = this;
+        setTimeout(function()
+        {
+            $('#OptionMenu').remove();
+            context.isOptionMenuOpen = false;
+        }, 1);
+    }
+
+    this.handleMenuEntryScrollToBottomClicked = function(menuEntry)
+    {
+        $('html, body').animate({scrollTop: ($('html, body').height() - $(window).height()) }, 750);
+        var context = this;
+        setTimeout(function()
+        {
+            $('#OptionMenu').remove();
+            context.isOptionMenuOpen = false;
+        }, 1);
+    }
+
+    this.handleMenuEntryUseAutomaticScrollingClicked = function(menuEntry)
+    {
+        this.optionAutomaticScrolling = !this.optionAutomaticScrolling;
+
+        if(typeof(Storage) !== 'undefined')
+        {
+            localStorage.setItem('OptionAutomaticScrolling', JSON.stringify(this.optionAutomaticScrolling));
+        }
+
+        txt = (this.optionAutomaticScrolling == false) ? 'Enable automatic scrolling' : 'Disable automatic scrolling';
+        $(menuEntry).html(txt);
+
+        if (this.optionAutomaticScrolling == true)
+        {
+            $('html, body').animate({scrollTop: ($('html, body').height() - $(window).height()) }, 750);
+        }
+
+        var context = this;
+        setTimeout(function()
+        {
+            $('#OptionMenu').remove();
+            context.isOptionMenuOpen = false;
+        }, 1);
+    }
+
     this.handleMenuEntryUseDirectAppLinksClicked = function(menuEntry)
     {
-        this.opntionUseDirectAppLinks = !this.opntionUseDirectAppLinks;
-        txt = (this.opntionUseDirectAppLinks == false) ? 'Use direct app liks' : 'Use normal links';
-        $(menuEntry).html(txt);
-        if (this.opntionUseDirectAppLinks == true)
+        this.optionUseDirectAppLinks = !this.optionUseDirectAppLinks;
+
+        if(typeof(Storage) !== 'undefined')
         {
+            localStorage.setItem('OptionUseDirectAppLinks', JSON.stringify(this.optionUseDirectAppLinks));
+        }
+
+        txt = (this.optionUseDirectAppLinks == false) ? 'Use direct app liks' : 'Use normal links';
+        $(menuEntry).html(txt);
+
+        if (this.optionUseDirectAppLinks == true)
+        {
+            context = this
             setTimeout(function()
             {
                 $('a.Thumbnail').each(function()
                 {
                     href = $(this).attr('href');
-                    href = href.replace('http://', 'http-img-jpeg://');
+                    href = href.replace('http://', context.directAppLinkProtocol);
                     $(this).attr('href', href);
                 });
             }, 2);
         }
         else
         {
+            context = this
             setTimeout(function()
             {
                 $('a.Thumbnail').each(function()
                 {
                     href = $(this).attr('href');
-                    href = href.replace('http-img-jpeg://', 'http://');
+                    href = href.replace(context.directAppLinkProtocol, 'http://');
                     $(this).attr('href', href);
                 });
             }, 2);
         }
+        var context = this;
+        setTimeout(function()
+        {
+            $('#OptionMenu').remove();
+            context.isOptionMenuOpen = false;
+        }, 1);
+    }
+
+    this.handleMenuEntryClearLocalStorageClicked = function(menuEntry)
+    {
+        localStorage.clear()
+        setTimeout(function()
+        {
+            location.reload();
+        }, 100);
+
         var context = this;
         setTimeout(function()
         {
@@ -320,9 +454,37 @@ function Page()
 
     this.handleLinkClicked = function(a)
     {
-        txt = $('<div class="ThumbnailOverlay ThumbnailOverlayHidden">DOWNLOADED</div>');
-        $(a).append(txt);
+        if (!($(a).hasClass('Downloaded')))
+        {
+            $(a).addClass('Downloaded');
+            if(typeof(Storage) != 'undefined')
+            {
+                uniquePictureId = $(a).attr('id');
+                listOfDownloadedJpegFiles = JSON.parse(localStorage.getItem('ListOfDownloadedJpegFiles'));
+                if (Array.isArray(listOfDownloadedJpegFiles) != true)
+                {
+                    listOfDownloadedJpegFiles = [];
+                }
+                listOfDownloadedJpegFiles.push(uniquePictureId);
+                localStorage.setItem('ListOfDownloadedJpegFiles', JSON.stringify(listOfDownloadedJpegFiles));
+            }
+        }
         return true;
+    }
+
+    this.showToastMessage = function(message)
+    {
+        $('#ToastMessage').html(message);
+        $('#ToastMessage').removeClass('HiddenToast');
+        context = this
+        setTimeout(function(){context.removeToastMessage();}, 3000);
+
+    }
+
+    this.removeToastMessage = function()
+    {
+         $('#ToastMessage').addClass('HiddenToast');
+         $('#ToastMessage').html('');
     }
 
     this.loadContent = function()
@@ -332,6 +494,19 @@ function Page()
             context: this,
             success:function(data, status, request)
             {
+                // Notifications
+                if (data.hasOwnProperty('notification'))
+                {
+                    context = this
+                    if(data['notification'] == 'reboot')
+                    {
+                        context.showToastMessage('Server is going to reboot now!')
+                    }
+                    else if (data['notification'] == 'shutdown')
+                    {
+                        context.showToastMessage('Server is going to shutdown now!')
+                    }
+                }
                 // Update network state
                 if (this.isNetworkConnected == false)
                 {
@@ -357,6 +532,11 @@ function Page()
                 }
                 if (data['imageCounter'] > this.imageCounter)
                 {
+                    listOfDownloadedJpegFiles = null;
+                    if(typeof(Storage) != 'undefined')
+                    {
+                        listOfDownloadedJpegFiles = JSON.parse(localStorage.getItem('ListOfDownloadedJpegFiles'));
+                    }
                     // Update images
                     context = this
                     this.imageCounter = data['imageCounter'];
@@ -364,14 +544,25 @@ function Page()
                     reversedList.reverse();
                     for (imageIndex in reversedList)
                     {
-                        imageName = data['imageList'][imageIndex]
+                        imageName = data['imageList'][imageIndex];
+                        uniquePictureId = '_IMG_' + imageName;
                         this.imageList.push(imageName);
                         frameDiv = $('<div>', { 'class': 'ThumbnailFrame' });
                         thumbDiv = $('<div>', { 'class': 'Thumbnail' });
+                        link = "";
+                        if  (this.optionUseDirectAppLinks == true)
+                        {
+                            link = this.directAppLinkProtocol + window.location.hostname + ':' + window.location.port + '/' + this.photoFolder + '/' + imageName;
+                        }
+                        else
+                        {
+                            link = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/' + this.photoFolder + '/' + imageName;
+                        }
                         a = $('<a>',
                         {
+                            'id' : uniquePictureId,
                             'class': 'Thumbnail Minimized',
-                            'href': window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/' + this.photoFolder + '/' + imageName
+                            'href': link
                         });
                         a.click(function(){ return context.handleLinkClicked(this); });
                         img = $('<img>', { class: 'Thumbnail', src: this.thumnailFolder + '/' + imageName, alt: imageName });
@@ -380,9 +571,21 @@ function Page()
                         $(a).append(txt);
                         $(thumbDiv).append(a);
                         $(frameDiv).append(thumbDiv);
-                        $('#ThumbnailList').prepend(frameDiv);
+                        $('#ThumbnailList').append(frameDiv);
+                        if(listOfDownloadedJpegFiles != null)
+                        {
+                            found = ($.inArray(uniquePictureId, listOfDownloadedJpegFiles) > -1);
+                            if (found == true)
+                            {
+                                $(a).addClass('Downloaded');
+                            }
+                        }
                     }
                     setTimeout(function(){$('a.Minimized').removeClass('Minimized');}, 10);
+                    if (this.optionAutomaticScrolling == true)
+                    {
+                        setTimeout(function(){$('html, body').animate({scrollTop: ($('html, body').height() - $(window).height()) }, 750);}, 250);
+                    }
                 }
                 // Start next update interval with 100ms
                 var context = this;

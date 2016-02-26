@@ -32,7 +32,7 @@ html, body
 }
 body
 {
-    background-color:#B8B8B8;
+    background-color:#444444;
     color:#000000;
     font-family:arial, verdana, sans-serif;
     font-size:11pt;
@@ -66,8 +66,7 @@ img
 
 div.Page,
 div.Header,
-div.Content,
-div.Footer
+div.Content
 {
     width:100%;
 }
@@ -75,30 +74,31 @@ div.Footer
 div.Page
 {
     width:100%;
-    background-color:#B8B8B8;
+    background-color:#444444;
     overflow:hidden;
-}
-
-div.Header,
-div.Footer
-{
-    -webkit-box-shadow:0px 0px 10px 0px black;
-    -moz-box-shadow:0px 0px 10px 0px black;
-    box-shadow:0px 0px 10px 0px black;
 }
 
 div.Header
 {
     height:40px;
+    position:fixed;
+    -webkit-box-shadow:0px 0px 10px 0px black;
+    -moz-box-shadow:0px 0px 10px 0px black;
+    box-shadow:0px 0px 10px 0px black;
+    background-color:#444444;
+}
+div.ContentFrame
+{
+    float:none;
+    margin:0px auto;
+    width:320px;
+    height:100%;
 }
 div.Content
 {
-    min-height:300px;
-    padding:10px 0px 10px 0px;
-}
-div.Footer
-{
-    height:40px;
+    margin:0px auto;
+    min-height:400px;
+    padding:50px 0px 10px 0px;
 }
 
 div.StateElement
@@ -130,6 +130,19 @@ div.ThumbnailFrame
     width:320px;
     height:310px;
 }
+@media all and (min-width:  320px) and (max-width:  639px) { div.ContentFrame { width:320px; }}
+@media all and (min-width:  640px) and (max-width:  959px) { div.ContentFrame { width:640px; }}
+@media all and (min-width:  960px) and (max-width: 1279px) { div.ContentFrame { width:960px; }}
+@media all and (min-width: 1280px) and (max-width: 1599px) { div.ContentFrame { width:1280px; }}
+@media all and (min-width: 1600px) and (max-width: 1919px) { div.ContentFrame { width:1600px; }}
+@media all and (min-width: 1920px) and (max-width: 2239px) { div.ContentFrame { width:1920px; }}
+@media all and (min-width: 2240px) and (max-width: 2559px) { div.ContentFrame { width:2240px; }}
+@media all and (min-width: 2560px) and (max-width: 2879px) { div.ContentFrame { width:2560px; }}
+@media all and (min-width: 2880px) and (max-width: 3199px) { div.ContentFrame { width:2880px; }}
+@media all and (min-width: 3200px) and (max-width: 3519px) { div.ContentFrame { width:3200px; }}
+@media all and (min-width: 3520px) and (max-width: 3839px) { div.ContentFrame { width:3520px; }}
+@media all and (min-width: 3840px)                         { div.ContentFrame { width:3840px; }}
+
 @media all and (min-width:  320px) and (max-width:  639px) { div.ThumbnailFrame { width:100.0%; }}
 @media all and (min-width:  640px) and (max-width:  959px) { div.ThumbnailFrame { width: 50.0%; }}
 @media all and (min-width:  960px) and (max-width: 1279px) { div.ThumbnailFrame { width: 33.3%; }}
@@ -159,6 +172,7 @@ a.Thumbnail
     top: 50%;
     left: 50%;
     margin-right: -50%;
+    -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     width:100%;
     height:100%;
@@ -173,12 +187,31 @@ a.Minimized
     opacity:0.1;
 }
 
+a.Downloaded::after
+{
+    content:"DOWNLOADED";
+    position: absolute;
+    top:50%;
+    left:50%;
+    color:red;
+    font-weight:bold;
+    font-size:32px;
+    width:240px;
+    height:40px;
+    margin-left:-120px;
+    margin-top:-15px;
+    text-shadow:0px 0px 8px black;
+    transform: rotate(-20deg);
+    opacity:0.8;
+}
+
 img.Thumbnail
 {
     position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
+    -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     max-width:100%;
     max-height:100%;
@@ -239,16 +272,16 @@ div.Menu
     right: 0px;
     width:240px;
     color: white;
-    background-color:rgba(184, 184, 184, 0.4);
-    -webkit-box-shadow:2px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow:2px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    box-shadow:2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    background-color:#444444;
+    -webkit-box-shadow:0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow:0px 5px 5px 0px rgba(0, 0, 0, 0.5);
 }
 div.MenuEntry
 {
-    width:100%;
-    padding:15px 0px 15px 0px;
-    text-align:center;
+    width:90%;
+    padding:15px 0px 15px 10%;
+    text-align:left;
     cursor:pointer;
     background-color:rgba(0, 0, 0, 0.4);
     font-size:16px;
@@ -281,7 +314,9 @@ div.OverlayForm
     margin-left:-150px;
     margin-top:10px;
     background-color:white;
-    border-radius: 15px;
+    -webkit-box-shadow:0px 10px 10px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:0px 10px 10px 0px rgba(0, 0, 0, 0.5);
+    box-shadow:0px 10px 10px 0px rgba(0, 0, 0, 0.5);
 }
 div.OverlayFormTitle
 {
@@ -310,17 +345,18 @@ button.OverlayForm
     width:100%;
     background-color:rgba(0, 0, 0, 0.4);
     border: 0px;
-    border-radius: 4px;
     text-align:center;
     font-size:16px;
 }
 input.OverlayForm
 {
-background-color:rgba(80, 40, 40, 0.6);
+    background-color:rgba(80, 40, 40, 0.6);
 }
 button.OverlayForm
 {
-
+    -webkit-box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.3);
+    box-shadow:0px 2px 2px 0px rgba(0, 0, 0, 0.3);
 }
 button#RebootButton
 {
